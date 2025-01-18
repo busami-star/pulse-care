@@ -5,7 +5,7 @@ const Header = () => {
       <div className="flex md:items-center lg:items-start flex-col-reverse md:flex-row justify-between">
         <div className="py-8 pl-0">
           <h1 className="text-3xl pb-4 md:text-4xl lg:text-5xl font-semibold">
-            Find a doctor, schedule an appointment
+            <span className="text-primary ">Find a doctor,</span> schedule an appointment
             <br /> and experience the difference.
           </h1>
           <p className="pb-6">
