@@ -9,7 +9,6 @@ const Doctors = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Function to get all doctors or filter based on expertise
   const getAllDoctors = () => {
     let filteredDoctors = doctors;
     if (selectedExpertise) {
@@ -20,31 +19,32 @@ const Doctors = () => {
     setDoc(filteredDoctors);
   };
 
-  // Get `expertise` from URL query and set the filter
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const expertise = params.get("expertise") || "";
     setSelectedExpertise(expertise);
   }, [location.search]);
 
-  // Update doctors list when filter changes
   useEffect(() => {
     getAllDoctors();
   }, [doctors, selectedExpertise]);
 
   return (
     <div>
-      <h1 className="text-3xl font-medium">Browse Our Doctors</h1>
+      <h1 className="text-3xl font-medium text-center">Browse Our Doctors</h1>
 
       {/* Expertise filter buttons */}
-      <div className="mt-4 mb-4">
+      <div className="mt-4 mb-6">
         <span className="font-medium text-lg">Filter by Expertise: </span>
-        <div className="flex space-x-4">
+        <div className="flex flex-wrap gap-2 justify-center mt-2">
           <button
             onClick={() => setSelectedExpertise("")}
-            className={`p-2 border rounded-md ${
-              !selectedExpertise ? "bg-blue-500 text-white" : "bg-gray-200"
+            className={`p-2 border rounded-md transition-colors duration-300 ${
+              !selectedExpertise
+                ? "bg-blue-500 text-white"
+                : "bg-gray-200 hover:bg-blue-200"
             }`}
+            aria-label="Show all doctors"
           >
             All
           </button>
@@ -54,11 +54,12 @@ const Doctors = () => {
                 <button
                   key={index}
                   onClick={() => setSelectedExpertise(expertise)}
-                  className={`p-2 border rounded-md ${
+                  className={`p-2 border rounded-md transition-colors duration-300 ${
                     selectedExpertise === expertise
                       ? "bg-blue-500 text-white"
-                      : "bg-gray-200"
+                      : "bg-gray-200 hover:bg-blue-200"
                   }`}
+                  aria-label={`Filter by ${expertise}`}
                 >
                   {expertise}
                 </button>
@@ -68,27 +69,31 @@ const Doctors = () => {
       </div>
 
       <div className="mt-4">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {doc.length > 0 ? (
             doc.map((doct, index) => (
               <div
                 onClick={() => navigate(`/appointment/${doct.id}`)}
-                className="border rounded-xl p-4 border-gray-300 cursor-pointer hover:translate-y-[10px] transition-all duration-500"
+                className="border rounded-xl p-4 border-gray-300 cursor-pointer hover:shadow-lg hover:translate-y-[-4px] transition-transform duration-300"
                 key={index}
               >
-                <img
-                  className="rounded-xl"
-                  src={doct.image}
-                  alt={doct.name}
-                />
-                <div className="py-2">
-                  <p className="font-medium text-lg text-gray-950">{doct.name}</p>
+                <div className="w-full aspect-w-1 aspect-h-1">
+                  <img
+                    className="rounded-xl object-cover"
+                    src={doct.image}
+                    alt={doct.name}
+                  />
+                </div>
+                <div className="py-2 text-center">
+                  <p className="font-medium text-lg text-gray-900">
+                    {doct.name}
+                  </p>
                   <p className="text-sm text-gray-600">{doct.expartise}</p>
                 </div>
               </div>
             ))
           ) : (
-            <p>No doctors found.</p>
+            <p className="text-center text-gray-500">No doctors found.</p>
           )}
         </div>
       </div>
