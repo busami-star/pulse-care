@@ -13,14 +13,14 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    // Handle logout logic here
+   
     setUser (false);
     setDropdownOpen(false);
   };
 
   const handleOptionClick = (path) => {
     navigate(path);
-    setDropdownOpen(false); // Close dropdown after option is clicked
+    setDropdownOpen(false); 
   };
 
   const handleClickOutside = (event) => {
@@ -39,7 +39,7 @@ const Navbar = () => {
   return (
     <>
       <div className="flex items-center justify-between text-sm py-1 mb-5 border-b border-gray-400">
-        <div className="cursor-pointer size-[10%] mr-36 flex items-center">
+        <div onClick={()=>navigate('/')} className="cursor-pointer size-[10%] mr-36 flex items-center">
           <img src={assets.logo} alt="" />
           <span className="text-2xl font-bold">
             <h1>PulseCare</h1>

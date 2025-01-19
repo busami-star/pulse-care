@@ -1,3 +1,4 @@
+import Banner from "../components/Banner"
 import Experts from "../components/Experts"
 import Header from "../components/Header"
 import TopExperts from "../components/TopExperts"
@@ -9,6 +10,7 @@ const Home = () => {
       <Header />
       <Experts />
       <TopExperts />
+      <Banner />
     </div>
   )
 }
